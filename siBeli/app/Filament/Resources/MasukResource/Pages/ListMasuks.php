@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Filament\Resources\TbarangResource\Pages;
+namespace App\Filament\Resources\MasukResource\Pages;
 
-use App\Filament\Resources\TbarangResource;
+use App\Filament\Resources\MasukResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 
-class ListTbarangs extends ListRecords
+class ListMasuks extends ListRecords
 {
-    protected static string $resource = TbarangResource::class;
+    protected static string $resource = MasukResource::class;
 
     protected function getHeaderActions(): array
     {

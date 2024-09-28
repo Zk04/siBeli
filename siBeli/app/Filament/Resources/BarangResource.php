@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\TbarangResource\Pages;
-use App\Filament\Resources\TbarangResource\RelationManagers;
-use App\Models\Tbarang;
+use App\Filament\Resources\BarangResource\Pages;
+use App\Filament\Resources\BarangResource\RelationManagers;
+use App\Models\Barang;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -13,9 +13,9 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class TbarangResource extends Resource
+class BarangResource extends Resource
 {
-    protected static ?string $model = Tbarang::class;
+    protected static ?string $model = Barang::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
@@ -23,26 +23,34 @@ class TbarangResource extends Resource
     {
         return $form
         ->schema([
-            Forms\Components\TextInput::make('kdBarang')
+            Forms\Components\TextInput::make('kd_barang')
             ->label('Kode Barang')
             ->maxLength(12)
             ->required(),
 
-            Forms\Components\TextInput::make('namaBarang')
+            Forms\Components\TextInput::make('nama_barang')
             ->label('Nama Barang')
             ->maxLength(50)
             ->required(),
 
-            Forms\Components\TextInput::make('satuan')
-            ->label('Satuan')
-            ->required(),
+            Forms\Components\Select::make('satuan')
+            ->options([
+                "Pcs" => "Pcs",
+                "Buah" => "Buah",
+                "Lembar" => "Lembar",
+                "Lusin" => "Lusin",
+                "Unit" => "Unit",
+                "Box" => "Box",
+            ])
+            ->searchable()
+            ->native(false),
 
-            Forms\Components\TextInput::make('hargaJual')
+            Forms\Components\TextInput::make('harga_jual')
             ->label('Harga Jual')
             ->numeric()
             ->required(),
 
-            Forms\Components\TextInput::make('hargaBeli')
+            Forms\Components\TextInput::make('harga_beli')
             ->label('Harga Beli')
             ->numeric()
             ->required(),
@@ -53,13 +61,12 @@ class TbarangResource extends Resource
             ->required(),
 
             Forms\Components\Select::make('status')
-            ->label('Status')
-            ->required()
             ->options([
-            'Aktif' => 'Aktif',
-            'Tidak Aktif' => 'Tidak Aktif',
-        ])
-        ->default('Aktif'),
+                "True" => "True",
+                "False" => "False",
+            ])
+            ->searchable()
+            ->native(false),
         ]);
     }
 
@@ -67,14 +74,13 @@ class TbarangResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('kdBarang')->sortable()->searchable(),
-                Tables\Columns\TextColumn::make('namaBarang')->sortable()->searchable(),
+                Tables\Columns\TextColumn::make('kd_barang')->sortable()->searchable(),
+                Tables\Columns\TextColumn::make('nama_barang')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('satuan')->sortable()->searchable(),
-                Tables\Columns\TextColumn::make('hargaJual')->sortable()->searchable(),
-                Tables\Columns\TextColumn::make('hargaBeli')->sortable()->searchable(),
+                Tables\Columns\TextColumn::make('harga_jual')->sortable()->searchable(),
+                Tables\Columns\TextColumn::make('harga_beli')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('stok')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('status')->sortable()->searchable(),
-
             ])
             ->filters([
                 //
@@ -99,9 +105,9 @@ class TbarangResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListTbarangs::route('/'),
-            'create' => Pages\CreateTbarang::route('/create'),
-            'edit' => Pages\EditTbarang::route('/{record}/edit'),
+            'index' => Pages\ListBarangs::route('/'),
+            'create' => Pages\CreateBarang::route('/create'),
+            'edit' => Pages\EditBarang::route('/{record}/edit'),
         ];
     }
 }

@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Filament\Resources\TbarangResource\Pages;
+namespace App\Filament\Resources\BarangResource\Pages;
 
-use App\Filament\Resources\TbarangResource;
+use App\Filament\Resources\BarangResource;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
 
-class EditTbarang extends EditRecord
+class EditBarang extends EditRecord
 {
-    protected static string $resource = TbarangResource::class;
+    protected static string $resource = BarangResource::class;
 
     protected function getHeaderActions(): array
     {
